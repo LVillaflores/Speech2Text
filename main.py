@@ -1,33 +1,34 @@
 import speech_recognition as sr
-r = sr.Recognizer()
-m = sr.Microphone()
 
+r = sr.Recognizer()
+
+audio = 'trial.wav'
+
+with sr.AudioFile(audio) as source:
+	audio = r.record(source)
+	print ('Done!')
 
 try:
-    with m as source: r.adjust_for_ambient_noise(source)
+	value = r.recognize_google(audio)
 
-        while True:
+	if str is bytes: 
+	    result = u"{}".format(value).encode("utf-8")
 
-    with m as source: audio = r.listen(source)
-    print("")
+	else: 
+	    result = "{}".format(value)
 
-    try:
+	with open("outputs.txt","a") as f:
+	    f.write(result)
+	print(result)
 
-        value = r.recognize_google(audio)
+except sr.UnknownValueError:
+  print("")
 
-        if str is bytes: 
-            result = u"{}".format(value).encode("utf-8")
+except sr.RequestError as e:
+  print("{0}".format(e))
 
-        else: 
-            result = "{}".format(value)
-
-        with open("outputs.txt","a") as f:
-            f.write(result)
-        print(result)
-
-    except sr.UnknownValueError:
-        print("")
-    except sr.RequestError as e:
-        print("{0}".format(e))
-    except KeyboardInterrupt:
-        pass
+except KeyboardInterrupt:
+  pass
+  
+except Exception as e:
+  print (e)
