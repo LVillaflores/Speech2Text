@@ -2,33 +2,33 @@ import speech_recognition as sr
 
 r = sr.Recognizer()
 
-audio = 'trial.wav'
+audio = 'harvard.wav'
 
 with sr.AudioFile(audio) as source:
-	audio = r.record(source)
-	print ('Done!')
+    audio = r.record(source)
+    print('Done!')
 
 try:
-	value = r.recognize_google(audio)
+    value = r.recognize_google(audio)
 
-	if str is bytes: 
-	    result = u"{}".format(value).encode("utf-8")
+    if str is bytes:
+        result = u"{}".format(value).encode("utf-8")
 
-	else: 
-	    result = "{}".format(value)
+    else:
+        result = "{}".format(value)
 
-	with open("outputs.txt","a") as f:
-	    f.write(result)
-	print(result)
+    with open("outputs.txt", "a") as f:
+        f.write(result)
+    print(result)
 
 except sr.UnknownValueError:
-  print("")
+    print("")
 
 except sr.RequestError as e:
-  print("{0}".format(e))
+    print("{0}".format(e))
 
 except KeyboardInterrupt:
-  pass
-  
+    pass
+
 except Exception as e:
-  print (e)
+    print(e)
